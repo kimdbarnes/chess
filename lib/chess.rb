@@ -1,5 +1,8 @@
-require "chess/version"
+require 'chess/version'
+require 'chess/game'
 
 module Chess
-  # Your code goes here...
+  def self.start
+    Chess::Game.new.show
+  end
 end
