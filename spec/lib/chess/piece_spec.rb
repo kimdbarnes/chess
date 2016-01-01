@@ -16,25 +16,49 @@ module Chess
     end
 
     describe '#move' do
-      let(:piece) { described_class.new('white_king.png', 505, 810, 0) }
-
       context 'when :forward' do
         it 'should update coordinates' do
+          piece = described_class.new('white_king.png', 505, 810, 0)
+
           piece.move(:forward)
 
           expect(piece.x_coord).to eq 505
           expect(piece.y_coord).to eq 710
           expect(piece.z_coord).to eq 0
         end
+
+        it 'should not go off the board' do
+          piece = described_class.new('white_king.png', 505, 110, 0)
+
+          piece.move(:forward)
+          piece.move(:forward)
+          piece.move(:forward)
+          piece.move(:forward)
+
+          expect(piece.y_coord).to eq 110
+        end
       end
 
       context 'when :backward' do
         it 'should update coordinates' do
+          piece = described_class.new('white_king.png', 505, 210, 0)
+
           piece.move(:backward)
 
           expect(piece.x_coord).to eq 505
-          expect(piece.y_coord).to eq 810
+          expect(piece.y_coord).to eq 310
           expect(piece.z_coord).to eq 0
+        end
+
+        it 'should not go off the board' do
+          piece = described_class.new('white_king.png', 505, 810, 0)
+
+          piece.move(:backward)
+          piece.move(:backward)
+          piece.move(:backward)
+          piece.move(:backward)
+
+          expect(piece.y_coord).to eq 810
         end
       end
     end

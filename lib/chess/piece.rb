@@ -17,9 +17,13 @@ module Chess
 
     def move(direction)
       if direction == :forward
-        @y_coord = 710
+        if y_coord > 110
+          @y_coord = y_coord - 100
+        end
       else
-        @y_coord = 810
+        if y_coord < 810
+          @y_coord = y_coord + 100
+        end
       end
     end
 

@@ -17,11 +17,26 @@ module Chess
     end
 
     describe '#update' do
-      it 'should move a piece' do
+      before do
+        allow(Gosu).to receive(:button_down?).and_return(false)
+      end
+
+      it 'should move a piece forward' do
+        allow(Gosu).to receive(:button_down?).with(Gosu::KbUp).and_return(true)
         piece_double = double(:piece)
         allow(Piece).to receive(:new).and_return(piece_double)
 
-        expect(piece_double).to receive(:move)
+        expect(piece_double).to receive(:move).with(:forward)
+
+        described_class.new.update
+      end
+
+      it 'should move a piece backward' do
+        allow(Gosu).to receive(:button_down?).with(Gosu::KbDown).and_return(true)
+        piece_double = double(:piece)
+        allow(Piece).to receive(:new).and_return(piece_double)
+
+        expect(piece_double).to receive(:move).with(:backward)
 
         described_class.new.update
       end

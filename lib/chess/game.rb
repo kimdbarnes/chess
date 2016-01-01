@@ -11,7 +11,13 @@ module Chess
     end
 
     def update
-      @pieces.first.move([:forward, :backward].sample)
+      selected_piece = @pieces.first
+
+      if Gosu::button_down? Gosu::KbUp
+        selected_piece.move(:forward)
+      elsif Gosu::button_down? Gosu::KbDown
+        selected_piece.move(:backward)
+      end
     end
 
     def draw
